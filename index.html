@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>aadhar pannu</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --brat:#8ACE00;
+  --bratdark:#5a8800;
+  --white:#ffffff;
+  --black:#111111;
+  --off:#f0f0f0;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--brat);
+  color:var(--black);
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:16px;
+  overflow-x:hidden;
+  cursor:crosshair;
+}
+
+/* NAV */
+nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.5rem 2.5rem;
+  border-bottom:2px solid var(--black);
+  background:var(--brat);
+  position:sticky;top:0;z-index:99;
+}
+.nav-logo{
+  font-size:1rem;font-weight:700;letter-spacing:-0.02em;text-transform:lowercase;
+}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  text-decoration:none;color:var(--black);font-size:0.8rem;
+  text-transform:lowercase;font-weight:700;letter-spacing:0.05em;
+  border-bottom:2px solid transparent;transition:border-color 0.15s;
+}
+.nav-links a:hover{border-bottom:2px solid var(--black);}
+
+/* HERO */
+.hero{
+  min-height:90vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:4rem 2.5rem 2rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero-name{
+  font-size:clamp(5rem,15vw,13rem);
+  font-weight:700;
+  text-transform:lowercase;
+  letter-spacing:-0.04em;
+  line-height:0.9;
+  color:var(--black);
+  position:relative;
+  z-index:2;
+  filter:blur(0px);
+  transition:filter 0.3s;
+}
+.hero-name:hover{filter:blur(2px);}
+.hero-sub{
+  font-size:clamp(1rem,2.5vw,1.4rem);
+  font-weight:400;
+  text-transform:lowercase;
+  margin-top:2rem;
+  max-width:600px;
+  line-height:1.5;
+  color:var(--black);
+  position:relative;z-index:2;
+}
+.hero-quotes{
+  display:flex;gap:1.5rem;flex-wrap:wrap;
+  margin-top:3rem;position:relative;z-index:2;
+}
+.brat-pill{
+  background:var(--black);color:var(--brat);
+  font-size:0.85rem;font-weight:700;text-transform:lowercase;
+  padding:0.5rem 1.25rem;border:2px solid var(--black);
+  letter-spacing:0.05em;cursor:default;
+  transition:background 0.15s,color 0.15s;
+}
+.brat-pill:hover{background:var(--white);color:var(--black);}
+.hero-scroll{
+  margin-top:4rem;font-size:0.75rem;font-weight:700;
+  text-transform:lowercase;letter-spacing:0.1em;
+  display:flex;align-items:center;gap:0.75rem;
+  position:relative;z-index:2;
+}
+.hero-scroll::before{content:'';width:3rem;height:2px;background:var(--black);}
+
+/* BLOBS — decorative background shapes */
+.blob{
+  position:absolute;border-radius:50%;
+  background:rgba(0,0,0,0.07);
+  pointer-events:none;
+}
+.blob1{width:400px;height:400px;top:-100px;right:-80px;}
+.blob2{width:200px;height:200px;bottom:80px;right:200px;background:rgba(0,0,0,0.05);}
+
+/* SECTION BASE */
+section{padding:5rem 2.5rem;}
+.sec-label{
+  font-size:0.7rem;font-weight:700;text-transform:lowercase;
+  letter-spacing:0.15em;margin-bottom:0.75rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.sec-label::after{content:'';flex:1;height:2px;background:currentColor;opacity:0.2;}
+.sec-title{
+  font-size:clamp(2.5rem,6vw,5rem);font-weight:700;
+  text-transform:lowercase;letter-spacing:-0.03em;
+  line-height:1;margin-bottom:3rem;
+}
+
+/* WHITE SECTION */
+.white-sec{background:var(--white);color:var(--black);}
+.black-sec{background:var(--black);color:var(--brat);}
+.brat-sec{background:var(--brat);color:var(--black);}
+
+/* SKILLS */
+.skills-dump{
+  display:flex;flex-wrap:wrap;gap:1rem;
+}
+.skill-block{
+  border:2px solid var(--black);
+  padding:1.25rem 1.5rem;
+  background:var(--brat);
+  transition:transform 0.15s,background 0.15s;
+  cursor:default;
+}
+.skill-block:hover{transform:translate(-3px,-3px);background:var(--black);color:var(--brat);}
+.skill-block:hover .skill-dots span{background:var(--brat);}
+.skill-name-b{font-size:1rem;font-weight:700;text-transform:lowercase;margin-bottom:0.25rem;}
+.skill-desc-b{font-size:0.75rem;opacity:0.7;text-transform:lowercase;margin-bottom:0.75rem;line-height:1.4;}
+.skill-dots{display:flex;gap:5px;}
+.skill-dots span{width:8px;height:8px;border-radius:50%;background:var(--black);}
+.skill-dots span.empty{background:transparent;border:2px solid var(--black);}
+.skill-block:hover .skill-dots span.empty{border-color:var(--brat);}
+
+/* GOALS */
+.goals-list{list-style:none;display:flex;flex-direction:column;}
+.goal-item{
+  display:flex;gap:2rem;align-items:baseline;
+  padding:1.5rem 0;border-bottom:2px solid rgba(255,255,255,0.15);
+}
+.goal-item:first-child{border-top:2px solid rgba(255,255,255,0.15);}
+.goal-num{
+  font-size:3rem;font-weight:700;opacity:0.3;
+  font-variant-numeric:tabular-nums;min-width:3.5rem;line-height:1;
+}
+.goal-body strong{
+  display:block;font-size:1.1rem;font-weight:700;
+  text-transform:lowercase;margin-bottom:0.3rem;
+}
+.goal-body p{font-size:0.9rem;opacity:0.75;line-height:1.6;text-transform:lowercase;}
+
+/* DESTINATIONS */
+.dest-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;
+  margin-top:2rem;
+}
+.dest-card{
+  border:2px solid var(--black);padding:1.5rem;
+  background:transparent;
+  transition:background 0.15s,transform 0.15s;cursor:default;
+  display:flex;flex-direction:column;gap:0.5rem;
+}
+.dest-card:hover{background:var(--black);color:var(--brat);transform:translate(-2px,-2px);}
+.dest-flag{font-size:2rem;}
+.dest-name{font-size:0.9rem;font-weight:700;text-transform:lowercase;}
+
+/* INTERESTS */
+.interests-chaos{
+  display:flex;flex-wrap:wrap;gap:0.75rem;
+}
+.int-tag{
+  font-size:0.85rem;font-weight:700;text-transform:lowercase;
+  padding:0.5rem 1rem;border:2px solid var(--white);
+  color:var(--white);background:transparent;
+  transition:background 0.15s,color 0.15s;cursor:default;
+}
+.int-tag:hover{background:var(--white);color:var(--black);}
+
+/* LANGUAGES */
+.lang-row{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem;}
+.lang-item{
+  display:flex;flex-direction:column;gap:0.2rem;
+  border-left:4px solid var(--white);padding-left:1rem;
+}
+.lang-name{font-size:1.1rem;font-weight:700;text-transform:lowercase;}
+.lang-lvl{font-size:0.7rem;opacity:0.6;text-transform:lowercase;letter-spacing:0.08em;}
+
+/* MARQUEE */
+.marquee-wrap{
+  overflow:hidden;border-top:2px solid var(--black);border-bottom:2px solid var(--black);
+  background:var(--black);padding:0.75rem 0;
+}
+.marquee-track{
+  display:flex;gap:3rem;white-space:nowrap;
+  animation:marquee 18s linear infinite;
+}
+.marquee-track span{
+  font-size:0.85rem;font-weight:700;color:var(--brat);
+  text-transform:lowercase;letter-spacing:0.1em;
+}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* FOOTER */
+footer{
+  background:var(--black);color:var(--brat);
+  padding:3rem 2.5rem;
+  display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem;
+  border-top:4px solid var(--brat);
+}
+.footer-big{font-size:clamp(2rem,5vw,4rem);font-weight:700;text-transform:lowercase;letter-spacing:-0.03em;line-height:1;}
+.footer-small{font-size:0.75rem;opacity:0.6;text-transform:lowercase;line-height:1.8;}
+
+/* FADE IN */
+.fi{opacity:0;transform:translateY(24px);transition:opacity 0.5s ease,transform 0.5s ease;}
+.fi.v{opacity:1;transform:none;}
+
+@media(max-width:700px){
+  .hero-name{font-size:clamp(3.5rem,18vw,6rem);}
+  section{padding:3.5rem 1.5rem;}
+  nav{padding:1rem 1.5rem;}
+  footer{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">aadhar pannu</span>
+  <ul class="nav-links">
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#goals">goals</a></li>
+    <li><a href="#world">world</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero brat-sec">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <h1 class="hero-name fi">aadhar<br>pannu.</h1>
+  <p class="hero-sub fi">designer. creator. learner. coding newbie. future global citizen. gym rat. gamer. just getting started.</p>
+  <div class="hero-quotes fi">
+    <span class="brat-pill">memento mori</span>
+    <span class="brat-pill">le monde est à nous</span>
+  </div>
+  <p class="hero-scroll fi">scroll down</p>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>ui design</span><span>·</span>
+    <span>after effects</span><span>·</span>
+    <span>photoshop</span><span>·</span>
+    <span>illustrator</span><span>·</span>
+    <span>python (learning)</span><span>·</span>
+    <span>sketching</span><span>·</span>
+    <span>video editing</span><span>·</span>
+    <span>ai & data</span><span>·</span>
+    <span>finance curious</span><span>·</span>
+    <span>nature lover</span><span>·</span>
+    <span>ui design</span><span>·</span>
+    <span>after effects</span><span>·</span>
+    <span>photoshop</span><span>·</span>
+    <span>illustrator</span><span>·</span>
+    <span>python (learning)</span><span>·</span>
+    <span>sketching</span><span>·</span>
+    <span>video editing</span><span>·</span>
+    <span>ai & data</span><span>·</span>
+    <span>finance curious</span><span>·</span>
+    <span>nature lover</span><span>·</span>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills" class="white-sec">
+  <p class="sec-label fi">what i do</p>
+  <h2 class="sec-title fi">skills.</h2>
+  <div class="skills-dump fi">
+    <div class="skill-block">
+      <div class="skill-name-b">video editing</div>
+      <div class="skill-desc-b">after effects, motion graphics, post-production</div>
+      <div class="skill-dots"><span></span><span></span><span></span><span></span><span class="empty"></span></div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-name-b">ui design</div>
+      <div class="skill-desc-b">clean interfaces, strong visual hierarchy</div>
+      <div class="skill-dots"><span></span><span></span><span></span><span></span><span class="empty"></span></div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-name-b">poster design</div>
+      <div class="skill-desc-b">photoshop & illustrator, editorial compositions</div>
+      <div class="skill-dots"><span></span><span></span><span></span><span></span><span class="empty"></span></div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-name-b">sketching</div>
+      <div class="skill-desc-b">freehand illustration, doodling, ideation</div>
+      <div class="skill-dots"><span></span><span></span><span></span><span class="empty"></span><span class="empty"></span></div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-name-b">python</div>
+      <div class="skill-desc-b">learning from scratch. one line at a time.</div>
+      <div class="skill-dots"><span></span><span></span><span class="empty"></span><span class="empty"></span><span class="empty"></span></div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-name-b">ai & data</div>
+      <div class="skill-desc-b">actively exploring. deeply curious.</div>
+      <div class="skill-dots"><span></span><span></span><span class="empty"></span><span class="empty"></span><span class="empty"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GOALS -->
+<section id="goals" class="black-sec">
+  <p class="sec-label fi">where i'm headed</p>
+  <h2 class="sec-title fi">goals.</h2>
+  <ul class="goals-list fi">
+    <li class="goal-item">
+      <span class="goal-num">01</span>
+      <div class="goal-body"><strong>go global</strong><p>build a career abroad. uk, europe, australia. no limits, no excuses.</p></div>
+    </li>
+    <li class="goal-item">
+      <span class="goal-num">02</span>
+      <div class="goal-body"><strong>master code & ai</strong><p>python now. machine learning next. data analysis after that. just keep moving.</p></div>
+    </li>
+    <li class="goal-item">
+      <span class="goal-num">03</span>
+      <div class="goal-body"><strong>understand money</strong><p>stocks, real estate, finance. build wealth. make decisions from knowledge, not fear.</p></div>
+    </li>
+    <li class="goal-item">
+      <span class="goal-num">04</span>
+      <div class="goal-body"><strong>never stop creating</strong><p>poster, video, sketch, ui — always something. creativity is the one constant.</p></div>
+    </li>
+    <li class="goal-item">
+      <span class="goal-num">05</span>
+      <div class="goal-body"><strong>travel everything</strong><p>stay connected to nature. keep moving. collect experiences not things.</p></div>
+    </li>
+  </ul>
+</section>
+
+<!-- DESTINATIONS -->
+<section id="world" class="brat-sec">
+  <p class="sec-label fi">target destinations</p>
+  <h2 class="sec-title fi">the world.</h2>
+  <div class="dest-grid fi">
+    <div class="dest-card"><span class="dest-flag">🇬🇧</span><span class="dest-name">united kingdom</span></div>
+    <div class="dest-card"><span class="dest-flag">🇩🇪</span><span class="dest-name">germany</span></div>
+    <div class="dest-card"><span class="dest-flag">🇮🇹</span><span class="dest-name">italy</span></div>
+    <div class="dest-card"><span class="dest-flag">🇨🇭</span><span class="dest-name">switzerland</span></div>
+    <div class="dest-card"><span class="dest-flag">🇦🇺</span><span class="dest-name">australia</span></div>
+  </div>
+</section>
+
+<!-- INTERESTS + LANGUAGES -->
+<section class="black-sec">
+  <p class="sec-label fi">beyond work</p>
+  <h2 class="sec-title fi">interests.</h2>
+  <div class="interests-chaos fi">
+    <span class="int-tag">travel</span>
+    <span class="int-tag">nature</span>
+    <span class="int-tag">gaming</span>
+    <span class="int-tag">gym</span>
+    <span class="int-tag">video editing</span>
+    <span class="int-tag">poster design</span>
+    <span class="int-tag">doodling</span>
+    <span class="int-tag">ai</span>
+    <span class="int-tag">stock market</span>
+    <span class="int-tag">real estate</span>
+    <span class="int-tag">finance</span>
+    <span class="int-tag">data analysis</span>
+    <span class="int-tag">japanese culture</span>
+    <span class="int-tag">python</span>
+  </div>
+  <div class="lang-row fi" style="margin-top:3rem;">
+    <div class="lang-item"><span class="lang-name">hindi</span><span class="lang-lvl">native</span></div>
+    <div class="lang-item"><span class="lang-name">english</span><span class="lang-lvl">fluent</span></div>
+    <div class="lang-item"><span class="lang-name">french</span><span class="lang-lvl">learning</span></div>
+    <div class="lang-item"><span class="lang-name">japanese</span><span class="lang-lvl">learning</span></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-big">le monde<br>est à nous.</div>
+  <div class="footer-small">
+    aadhar pannu<br>
+    ahmedabad, india 🇮🇳<br>
+    upes · ece · class of 2028<br>
+    memento mori.
+  </div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');});},{threshold:0.1});
+document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
